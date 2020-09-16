@@ -21,19 +21,7 @@ detailed steps of reproducing the features, and how to pressure test the system.
 
 You can find the [White Paper](https://github.com/helinwang/dex/wiki/White-Paper) in the wiki. It has system overview and the plan to solve the scalability problem.
 
-## Running Prebuilt Binaries
-
-1. Install [Barreto-Naehrig curves](https://github.com/dfinity/bn)
-
-   1. Install the prebuilt libraries in their readme page into `/usr/lib`.
-
-   1. Install the dependency libgmp `apt get install libgmp-dev`.
-
-1. Download and run the prebuilt binaries (built on Ubuntu 16.04) from the [release page](https://github.com/helinwang/dex/releases).
-
 ## Build
-
-### Build with Docker
 
 ```
 $ docker-compose up -d
@@ -42,40 +30,6 @@ $ glide install
 $ go test ./pkg/...
 $ go build ./cmd/node/
 ```
-
-### Build from Source
-
-- Install the latest version of [Go](https://golang.org/doc/install#install)
-
-- Install [Barreto-Naehrig curves](https://github.com/dfinity/bn)
-
-  - Ubuntu or OSX can use the latest prebuilt libraries in the readme
-    page.
-
-  - Install the include files and built libraries into `/usr/include`
-    and `/usr/lib` respectively (or anywhere else the Go build
-    toolchain can find).
-
-  - Install dependencies `apt install llvm g++ libgmp-dev libssl-dev`,
-    they are required by cgo when building the BLS Go wrapper.
-
-  - Test the installation by:
-    ```
-    $ go get github.com/dfinity/go-dfinity-crypto
-    $ cd $GOPATH/src/github.com/dfinity/go-dfinity-crypto/bls
-    $ go test
-    ```
-
-- Install package manager [Glide](https://glide.sh/)
-
-- Download source and build
-  ```
-  $ go get github.com/helinwang/dex
-  $ cd $GOPATH/src/github.com/helinwang/dex
-  $ glide install
-  $ go test ./pkg/...
-  $ go build ./cmd/node/
-  ```
 
 ## License
 
