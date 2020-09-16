@@ -1,0 +1,11 @@
+version: '3'
+services:
+  dex:
+    container_name: dex
+    image: helinwang/dex:build
+    env_file:
+      - .env
+    tty: true
+    working_dir: /root/env/gopath/src/github.com/helinwang/dex
+    volumes:
+      - ./:/root/env/gopath/src/github.com/helinwang/dex
