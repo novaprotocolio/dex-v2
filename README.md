@@ -25,9 +25,9 @@ You can find the [White Paper](https://github.com/helinwang/dex/wiki/White-Paper
 
 1. Install [Barreto-Naehrig curves](https://github.com/dfinity/bn)
 
-    1. Install the prebuilt libraries in their readme page into `/usr/lib`.
-  
-    1. Install the dependency libgmp `apt get install libgmp-dev`.
+   1. Install the prebuilt libraries in their readme page into `/usr/lib`.
+
+   1. Install the dependency libgmp `apt get install libgmp-dev`.
 
 1. Download and run the prebuilt binaries (built on Ubuntu 16.04) from the [release page](https://github.com/helinwang/dex/releases).
 
@@ -36,11 +36,8 @@ You can find the [White Paper](https://github.com/helinwang/dex/wiki/White-Paper
 ### Build with Docker
 
 ```
-$ docker pull helinwang/dex:build
-$ git clone git@github.com:helinwang/dex.git
-$ cd dex
-$ docker run -v `pwd`:/root/env/gopath/src/github.com/helinwang/dex -it helinwang/dex:build bash
-$ cd /root/env/gopath/src/github.com/helinwang/dex
+$ docker-compose up -d
+$ docker-compose exec dex bash
 $ glide install
 $ go test ./pkg/...
 $ go build ./cmd/node/
@@ -54,7 +51,7 @@ $ go build ./cmd/node/
 
   - Ubuntu or OSX can use the latest prebuilt libraries in the readme
     page.
-  
+
   - Install the include files and built libraries into `/usr/include`
     and `/usr/lib` respectively (or anywhere else the Go build
     toolchain can find).
