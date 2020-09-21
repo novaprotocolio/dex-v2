@@ -10,7 +10,7 @@ The example for pressure testing the system is at the end of this document.
 
 1. Generate the credentials for the trading accounts
 
-   ```
+   ```bash
    $ ./gen_credentials -N 10000
    ```
 
@@ -28,7 +28,7 @@ The example for pressure testing the system is at the end of this document.
    The BNB native token and the tokens specified in `tokens.txt` are distributed evenly
    to all the trading accounts insider the `./credentials` folder.
 
-   ```
+   ```bash
    $ cat > tokens.txt
    BTC,90000000000,8
    ETH,90000000000,8

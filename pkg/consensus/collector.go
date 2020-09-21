@@ -74,6 +74,7 @@ func (c *collector) Add(target Hash, itemHash Hash, item interface{}) ([]interfa
 
 func (c *collector) Get(itemHash Hash) interface{} {
 	c.mu.Lock()
+	defer c.mu.Unlock()
 	r := c.items[itemHash]	
 	return r
 }
