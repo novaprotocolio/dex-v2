@@ -136,9 +136,9 @@ func (r *RandomBeacon) Round() uint64 {
 // WaitUntil will return until the given round is reached.
 func (r *RandomBeacon) WaitUntil(round uint64) {
 	r.mu.Lock()
-	defer r.mu.Unlock()
 	curRound := r.round()
 	if round <= curRound {
+		r.mu.Unlock()
 		return
 	}
 
@@ -147,6 +147,7 @@ func (r *RandomBeacon) WaitUntil(round uint64) {
 		ch = make(chan struct{}, 0)
 		r.roundWaitCh[round] = ch
 	}
+	r.mu.Unlock()
 
 	<-ch
 }
@@ -159,7 +160,6 @@ func (r *RandomBeacon) Rank(addr Addr, round uint64) (uint16, error) {
 	}
 
 	r.mu.Lock()
-	defer r.mu.Unlock()
 	bp := r.nextBPCmteHistory[round]
 	g := r.groups[bp]
 	idx := -1
@@ -171,10 +171,12 @@ func (r *RandomBeacon) Rank(addr Addr, round uint64) (uint16, error) {
 	}
 
 	if idx < 0 {
+		r.mu.Unlock()
 		return 0, fmt.Errorf("addr %v not in the current block proposal group %d, round: %d", addr, bp, round)
 	}
 
 	perm := r.nextBPRandHistory[round].Perm(idx+1, len(g.Members))
+	r.mu.Unlock()
 	return uint16(perm[idx]), nil
 }
 
@@ -192,10 +194,10 @@ func (r *RandomBeacon) deriveRand(h Hash) {
 // notarization groups.
 func (r *RandomBeacon) Committees(round uint64) (rb, bp, nt int) {
 	r.mu.Lock()
-	defer r.mu.Unlock()
 	rb = r.nextRBCmteHistory[round]
 	bp = r.nextBPCmteHistory[round]
 	nt = r.nextNtCmteHistory[round]
+	r.mu.Unlock()
 	return
 }
 

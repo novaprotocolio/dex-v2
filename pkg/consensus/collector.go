@@ -48,10 +48,9 @@ func (c *collector) Add(target Hash, itemHash Hash, item interface{}) ([]interfa
 	}
 
 	c.mu.Lock()
-	defer c.mu.Unlock()
 	if _, ok := c.items[itemHash]; ok {
 		// already added
-		
+		c.mu.Unlock()
 		return nil, false
 	}
 
@@ -63,18 +62,20 @@ func (c *collector) Add(target Hash, itemHash Hash, item interface{}) ([]interfa
 			h := current[i]
 			items[i+1] = c.items[h]
 		}
-		c.merged.Add(target, struct{}{})		
+		c.merged.Add(target, struct{}{})
+		c.mu.Unlock()
 		return items, false
 	}
 
 	c.mergeItems[target] = append(current, itemHash)
-	c.items[itemHash] = item	
+	c.items[itemHash] = item
+	c.mu.Unlock()
 	return nil, true
 }
 
 func (c *collector) Get(itemHash Hash) interface{} {
 	c.mu.Lock()
-	defer c.mu.Unlock()
-	r := c.items[itemHash]	
+	r := c.items[itemHash]
+	c.mu.Unlock()
 	return r
 }
