@@ -23,10 +23,14 @@ You can find the [White Paper](https://github.com/helinwang/dex/wiki/White-Paper
 
 ## Build
 
-```
+```bash
 $ docker-compose up -d
 $ docker-compose exec dex bash
 $ glide install
+$ # install echo framework
+$ go get -u -f -v github.com/labstack/echo
+$ go get -u golang.org/x/crypto/...
+$ # then build
 $ go test ./pkg/...
 $ go build ./cmd/node/
 ```

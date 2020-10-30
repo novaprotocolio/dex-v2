@@ -9,8 +9,8 @@ run:
 logs:
 	docker-compose logs --tail=100 -f
 
-build:
-	docker-compose up -d --build --force-recreate
+reset:
+	docker-compose up -d --force-recreate
 
 stop:
 	docker-compose stop

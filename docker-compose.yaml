@@ -1,4 +1,4 @@
-version: '3'
+version: '3.3'
 services:
   dex:
     container_name: dex
@@ -6,6 +6,8 @@ services:
     env_file:
       - .env
     tty: true
+    ports:
+      - 8080:8080
     working_dir: /root/env/gopath/src/github.com/helinwang/dex
     volumes:
       - ./:/root/env/gopath/src/github.com/helinwang/dex
