@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
 	"os"
 
 	"github.com/labstack/echo/v4"
@@ -18,13 +16,8 @@ func main() {
 	e.Use(middleware.Recover())
 
 	// Routes
-	e.GET("/", hello)
-	fmt.Printf(os.Getenv("API_PORT"))
-	// Start server
-	e.Logger.Fatal(e.Start(os.Getenv("API_PORT")))
-}
+	HelloRoute(e.Group("/hello"))
 
-// Handler
-func hello(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello, World!")
+	// Start server
+	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
 }
