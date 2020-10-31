@@ -8,7 +8,7 @@ import (
 
 // Handler
 func sayHello(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello, World, map handle to group!")
+	return c.String(http.StatusOK, "Hello, World!")
 }
 
 func HelloRoute(group *echo.Group) {

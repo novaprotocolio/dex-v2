@@ -40,6 +40,5 @@ $ go get -u golang.org/x/crypto/...
 $ # run code
 $ PORT=8080 go run api/*.go
 $ # live reload
-$ go get github.com/codegangsta/gin
-$ gin --appPort 8081 --port 8080 --build api/
+$ PORT=8080 make watch-api
 ```

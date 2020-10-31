@@ -3,6 +3,8 @@ ifneq ($(seed),)
 OPT_SEED := -seed :$(seed)
 endif
 
+port ?= 8080
+
 run:
 	docker-compose up -d 
 
@@ -41,6 +43,9 @@ gen_genesis:
 
 credential_info:
 	go run cmd/credential_info/credential_info.go -c credentials/node-$(node)
+
+watch-api:
+	PORT=$(port) ./bin/air -c api/air.conf	
 
 .PHONY: %
 .DEFAULT: exec
